@@ -14,6 +14,9 @@ namespace MoviesAPI
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+            //Enable CORS
+            builder.Services.AddCors();
+
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc(name: "V1", info: new OpenApiInfo
@@ -74,6 +77,8 @@ namespace MoviesAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(
+                c=> c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseAuthorization();
 
