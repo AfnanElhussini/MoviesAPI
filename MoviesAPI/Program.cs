@@ -29,7 +29,37 @@ namespace MoviesAPI
                     },
                    
                 });
+
+                options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
+                {
+                    Name= "Authorization",
+                    Type= SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat ="JWT",
+                    In = ParameterLocation.Header,
+                    Description  = "Please Enter JWT Key"
+                });
+
+                options.AddSecurityRequirement(securityRequirement: new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id= "Bearer"
+                                
+                            },
+                             Name = "Bearer",
+                             In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                
+                });
             });
+
 
             var app = builder.Build();
 
